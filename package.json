@@ -31,5 +31,6 @@
     "typescript": "^5",
     "vercel": "^33.4.1",
     "wrangler": "^3.27.0"
-  }
+  },
+  "packageManager": "yarn@4.1.0"
 }
