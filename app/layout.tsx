@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/header";
+import Footer from "./components/footer";
 
 export const metadata: Metadata = {
   title: "Samuel Kent - CV",
@@ -23,6 +24,7 @@ export default function RootLayout({
         <main className="max-w-3xl mx-auto m-6 p-4 rounded-lg shadow-2xl dark:shadow-neutral-600 dark:shadow-lg print:bg-none print:m-0 print:p-0 print:shadow-none">
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );
