@@ -21,7 +21,7 @@ export default function Header() {
 
   return (
     <header
-      className={`print:hidden bg-primary flex-row ${
+      className={`print:hidden bg-primary text-white flex-row ${
         isHeaderOpen ? "flex" : "hidden"
       }`}
     >
