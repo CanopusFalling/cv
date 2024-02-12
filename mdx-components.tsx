@@ -8,6 +8,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h2: ({ children }) => (
       <h2 className="text-3xl font-bold mb-3">{children}</h2>
     ),
+    h3: ({ children }) => <h2 className="text-xl font-bold">{children}</h2>,
     a: ({ href, children }) => (
       <a
         href={href}
@@ -20,7 +21,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     li: ({ children }) => <li className="mb-1">{children}</li>,
     p: ({ children }) => <p className="mb-4">{children}</p>,
     hr: ({ children }) => (
-      <hr className="mb-4 border-neutral-400 dark:border-neutral-600">
+      <hr className="mb-4 border-neutral-400 dark:border-neutral-600 print:border-black print:block">
         {children}
       </hr>
     ),
