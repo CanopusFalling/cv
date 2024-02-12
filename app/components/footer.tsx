@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="p-2 flex flex-col lg:flex-row lg:gap-4 justify-center text-center m-auto">
+    <footer className="p-2 flex flex-col lg:flex-row lg:gap-4 justify-center text-center m-auto print:hidden">
       <Link href={"https://github.com/CanopusFalling/cv"} className="underline">
         Project GitHub
       </Link>
