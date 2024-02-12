@@ -25,20 +25,20 @@ export default function Header() {
         isHeaderOpen ? "flex" : "hidden"
       }`}
     >
-      <div className="p-2 flex flex-row justify-center gap-4 m-auto">
+      <div className="p-2 flex flex-col lg:flex-row lg:gap-4 justify-center text-center m-auto">
         <Link
           href={"https://github.com/CanopusFalling/cv"}
           className="underline"
         >
           View the open source code for this website
         </Link>
-        |
+        <div className="hidden lg:flex">|</div>
         <Link href={"https://canopusfalling.co.uk/"} className="underline">
           Check out my other projects
         </Link>
       </div>
       <button
-        className="font-bold m-2"
+        className="font-bold p-2 px-5 text-md"
         aria-label="close header"
         onClick={closeHeader}
       >
