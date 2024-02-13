@@ -8,7 +8,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h2: ({ children }) => (
       <h2 className="text-3xl font-bold mb-3">{children}</h2>
     ),
-    h3: ({ children }) => <h2 className="text-xl font-bold">{children}</h2>,
+    h3: ({ children }) => <h3 className="text-xl font-bold mb-2">{children}</h3>,
+    h4: ({ children }) => <h4 className="text-md font-bold mb-2">{children}</h4>,
     a: ({ href, children }) => (
       <a
         href={href}

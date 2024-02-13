@@ -1,5 +1,5 @@
 import Timeline, { TimelineElement } from "./components/timeline";
-import Chip from "./components/chip";
+import Chip, { ChipContainer } from "./components/chip";
 
 # Samuel Kent
 
@@ -24,24 +24,30 @@ Hello, I'm a drop out Computer Science student with an interest in nearly anythi
     title="Bedford Modern School"
   ></TimelineElement>
   <TimelineElement start="June 2016">
-    <Chip>(GCSE) Mathematics **A\***</Chip>
+    <ChipContainer>
+      <Chip>(GCSE) Mathematics **A\***</Chip>
+    </ChipContainer>
   </TimelineElement>
   <TimelineElement start="June 2017">
-    <Chip>(GCSE) English Language **6**</Chip>
-    <Chip>(IGCSE) English Literature **B**</Chip>
-    <Chip>(GCSE) German **B**</Chip>
-    <Chip>(GCSE) History **B**</Chip>
-    <Chip>(GCSE) Biology **A\***</Chip>
-    <Chip>(GCSE) Chemistry **A\***</Chip>
-    <Chip>(GCSE) Physics: **A\***</Chip>
-    <Chip>(FSMQ) Additional Mathematics **A**</Chip>
-    <Chip>(GCSE) Computing **A**</Chip>
-    <Chip>(GCSE) Design & Technology Systems **B**</Chip>
+    <ChipContainer>
+      <Chip>(GCSE) English Language **6**</Chip>
+      <Chip>(IGCSE) English Literature **B**</Chip>
+      <Chip>(GCSE) German **B**</Chip>
+      <Chip>(GCSE) History **B**</Chip>
+      <Chip>(GCSE) Biology **A\***</Chip>
+      <Chip>(GCSE) Chemistry **A\***</Chip>
+      <Chip>(GCSE) Physics: **A\***</Chip>
+      <Chip>(FSMQ) Additional Mathematics **A**</Chip>
+      <Chip>(GCSE) Computing **A**</Chip>
+      <Chip>(GCSE) Design & Technology Systems **B**</Chip>
+    </ChipContainer>
   </TimelineElement>
   <TimelineElement start="June 2019">
-    <Chip>(A-Level) Mathematics **A**</Chip>
-    <Chip>(A-Level) Computer Science **B**</Chip>
-    <Chip>(A-Level) Physics **B**</Chip>
+    <ChipContainer>
+      <Chip>(A-Level) Mathematics **A**</Chip>
+      <Chip>(A-Level) Computer Science **B**</Chip>
+      <Chip>(A-Level) Physics **B**</Chip>
+    </ChipContainer>
   </TimelineElement>
   <TimelineElement
     start="Sep 2019"
@@ -105,6 +111,19 @@ Hello, I'm a drop out Computer Science student with an interest in nearly anythi
   >
     Website custom built for the use case of connecting people to LGBTQ+ events
     in Sheffield. - [Website](https://queercalendarsheffield.co.uk/)
+
+    <div className="flex-row">
+      <ChipContainer>
+        <Chip>Cloudflare Pages</Chip>
+        <Chip>NextJS</Chip>
+        <Chip>Serverless Computing</Chip>
+        <Chip>Tailwind CSS</Chip>
+        <Chip>ReactJS</Chip>
+        <Chip>Social Media Management</Chip>
+        <Chip>Email Management</Chip>
+      </ChipContainer>
+    </div>
+
   </TimelineElement>
 </Timeline>
 

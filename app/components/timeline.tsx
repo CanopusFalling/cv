@@ -27,7 +27,7 @@ export const TimelineElement: React.FC<TimelineElementProps> = ({
     <div className="mb-4 ml-4 mt-2">
       {title && <h4 className="mb-1.5 text-xl font-semibold">{title}</h4>}
       {children && (
-        <div className="mb-3 text-neutral-800 dark:text-white flex flex-wrap gap-2">
+        <div className="mb-3 text-neutral-800 dark:text-white">
           {children}
         </div>
       )}
