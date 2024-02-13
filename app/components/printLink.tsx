@@ -2,11 +2,9 @@
 
 import React, { ReactNode, useEffect, useState } from "react";
 
-interface PrintLinkProps {
-  children: ReactNode;
-}
+interface PrintLinkProps {}
 
-const PrintLink: React.FC<PrintLinkProps> = ({ children }) => {
+const PrintLink: React.FC<PrintLinkProps> = () => {
   const [link, setLink] = useState<string | undefined>(undefined);
 
   useEffect(() => {
