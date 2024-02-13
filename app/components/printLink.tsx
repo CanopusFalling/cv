@@ -11,7 +11,7 @@ const PrintLink: React.FC<PrintLinkProps> = ({ children }) => {
 
   useEffect(() => {
     setLink(window.location.href);
-  }, []); 
+  }, []);
 
   return (
     <div className="hidden print:block">
