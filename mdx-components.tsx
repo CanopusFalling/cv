@@ -22,9 +22,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </a>
     ),
-    ul: ({ children }) => (
-      <ul className="list-disc pl-5 mb-4 break-inside-avoid">{children}</ul>
-    ),
+    ul: ({ children }) => <ul className="list-disc pl-5 mb-4">{children}</ul>,
     li: ({ children }) => (
       <li className="mb-1 break-inside-avoid">{children}</li>
     ),

@@ -17,10 +17,10 @@ export const TimelineElement: React.FC<TimelineElementProps> = ({
   title,
   children,
 }) => (
-  <li className="break-inside-avoid">
+  <li>
     <div className="flex">
       <div className="-ml-[5px] mr-3 h-[9px] w-[9px] rounded-full bg-neutral-600 dark:bg-neutral-500"></div>
-      <p className="text-sm text-neutral-700 dark:text-neutral-200">
+      <p className="text-sm text-neutral-700 dark:text-neutral-200 break-after-avoid">
         {start} {end && `- ${end}`}
       </p>
     </div>
