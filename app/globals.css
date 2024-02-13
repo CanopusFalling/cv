@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @media print {
-    :root {
-        font-size: 80%; /* Adjust as needed */
-    }
+  :root {
+    font-size: 70%;
+  }
 }
