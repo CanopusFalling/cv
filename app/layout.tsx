@@ -17,7 +17,7 @@ export default function RootLayout({
     <html
       lang="en"
       dir="ltr"
-      className="bg-neutral-200 dark:bg-neutral-800 h-full text-black dark:text-white print:p-0 print:m-0"
+      className="bg-neutral-200 dark:bg-neutral-800 h-full text-black dark:text-white print:p-0 print:m-0 print:bg-white"
     >
       <body>
         <Header />
