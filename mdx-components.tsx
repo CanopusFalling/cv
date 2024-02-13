@@ -8,8 +8,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h2: ({ children }) => (
       <h2 className="text-2xl font-bold mb-3">{children}</h2>
     ),
-    h3: ({ children }) => <h3 className="text-xl font-bold mb-2">{children}</h3>,
-    h4: ({ children }) => <h4 className="text-md font-bold mb-2">{children}</h4>,
+    h3: ({ children }) => (
+      <h3 className="text-xl font-bold mt-2">{children}</h3>
+    ),
+    h4: ({ children }) => (
+      <h4 className="text-md font-bold mt-2">{children}</h4>
+    ),
     a: ({ href, children }) => (
       <a
         href={href}
@@ -18,8 +22,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </a>
     ),
-    ul: ({ children }) => <ul className="list-disc pl-5 mb-4 break-inside-avoid">{children}</ul>,
-    li: ({ children }) => <li className="mb-1 break-inside-avoid">{children}</li>,
+    ul: ({ children }) => (
+      <ul className="list-disc pl-5 mb-4 break-inside-avoid">{children}</ul>
+    ),
+    li: ({ children }) => (
+      <li className="mb-1 break-inside-avoid">{children}</li>
+    ),
     p: ({ children }) => <p className="break-inside-avoid">{children}</p>,
     hr: ({ children }) => (
       <hr className="my-3 border-neutral-400 dark:border-neutral-600 print:border-black print:block">
