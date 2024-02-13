@@ -14,7 +14,7 @@ export const ChipContainer: React.FC<ChipContainerProps> = ({ children }) => {
 
 const Chip: React.FC<ChipProps> = ({ children }) => {
   return (
-    <div className="bg-neutral-300 shadow-md dark:shadow-sm dark:bg-neutral-700 dark:shadow-neutral-600 p-1 px-4 rounded-full text-sm">
+    <div className="bg-neutral-300 shadow-md dark:shadow-sm dark:bg-neutral-700 dark:shadow-neutral-600 print:bg-neutral-100 p-1 px-4 rounded-full text-sm">
       {children}
     </div>
   );
