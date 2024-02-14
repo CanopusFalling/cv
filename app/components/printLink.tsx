@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface PrintLinkProps {}
 
@@ -12,8 +12,8 @@ const PrintLink: React.FC<PrintLinkProps> = () => {
   }, []);
 
   return (
-    <div className="hidden print:block">
-      You can view a fully accessible version of this CV at
+    <div className="hidden print:block pt-2">
+      You can view a fully accessible version of this doccument at
       {link && (
         <a href={link} className="text-primary">
           {` `}
