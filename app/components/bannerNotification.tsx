@@ -3,26 +3,29 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-export default function BannerNotification() {
-  const [isHeaderOpen, setIsHeaderOpen] = useState(true);
+const HEADER_CLOSED_STORAGE_NAME = "headerClosed";
 
+export default function BannerNotification() {
+  // Close banner by default.
+  const [isHeaderClosed, setIsHeaderClosed] = useState(true);
+
+  // Opens banner only if it hasn't previously been closed.
   useEffect(() => {
-    const storedPreference = localStorage.getItem("headerOpen");
-    console.log(storedPreference);
-    if (storedPreference === "false") {
-      setIsHeaderOpen(false);
+    const storedPreference = localStorage.getItem(HEADER_CLOSED_STORAGE_NAME);
+    if (storedPreference !== "true") {
+      setIsHeaderClosed(false);
     }
   }, []);
 
   function closeHeader() {
-    setIsHeaderOpen(false);
-    localStorage.setItem("headerOpen", "false");
+    setIsHeaderClosed(true);
+    localStorage.setItem(HEADER_CLOSED_STORAGE_NAME, "true");
   }
 
   return (
     <header
       className={`print:hidden bg-primary text-white flex-row ${
-        isHeaderOpen ? "flex" : "hidden"
+        isHeaderClosed ? "hidden" : "flex"
       }`}
     >
       <div className="p-2 flex flex-col lg:flex-row lg:gap-4 justify-center text-center m-auto">
