@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-export default function Header() {
+export default function BannerNotification() {
   const [isHeaderOpen, setIsHeaderOpen] = useState(true);
 
   useEffect(() => {
