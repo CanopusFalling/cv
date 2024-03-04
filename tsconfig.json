@@ -25,7 +25,7 @@
         "name": "next"
       }
     ],
-    "types" : ["@cloudflare/next-on-pages", "@cloudflare/workers-types"]
+    "types" : ["@cloudflare/workers-types"]
   },
   "include": [
     "next-env.d.ts",
