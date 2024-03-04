@@ -1,8 +1,7 @@
-import { redirect } from "next/navigation";
-import { NextRequest } from "next/server";
+//@ts-expect-error
 import { getRequestContext } from "@cloudflare/next-on-pages";
 
-export default function Page(request: NextRequest) {
+export default function Page() {
   const { env } = getRequestContext();
   const mainDB = env.MAIN_DB;
   console.log(mainDB);
