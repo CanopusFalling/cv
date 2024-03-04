@@ -1,3 +1,3 @@
 interface CloudflareEnv {
-  MAIN_DB: DurableObjectNamespace;
+  MAIN_DB: D1Database;
 }
