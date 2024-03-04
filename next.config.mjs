@@ -1,5 +1,3 @@
-import { setupDevBindings } from "@cloudflare/next-on-pages/next-dev";
-
 const withMDX = (await import("@next/mdx")).default();
 
 /** @type {import('next').NextConfig} */
@@ -7,22 +5,15 @@ const nextConfig = {
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
 };
 
-// Here we use the @cloudflare/next-on-pages next-dev module to allow us to use bindings during local development
-// (when running the application with `next dev`), for more information see:
-// https://github.com/cloudflare/next-on-pages/blob/8e93067/internal-packages/next-dev/README.md
-if (process.env.NODE_ENV === "development") {
-  await setupDevBindings({
-    bindings: {
-      // Add here the Cloudflare Bindings you want to have available during local development,
-      // for more details on Bindings see: https://developers.cloudflare.com/pages/functions/bindings/)
-      //
-      // KV Example:
-      // MY_KV: {
-      //   type: 'kv',
-      //   id: 'xxx',
-      // }
-    },
-  });
-}
-
 export default withMDX(nextConfig);
+
+import { setupDevPlatform } from "@cloudflare/next-on-pages/next-dev";
+
+// we only need to use the utility during development so we can check NODE_ENV
+// (note: this check is recommended but completely optional)
+if (process.env.NODE_ENV === "development") {
+  // `await`ing the call is not necessary but it helps making sure that the setup has succeeded.
+  //  If you cannot use top level awaits you could use the following to avoid an unhandled rejection:
+  //  `setupDevPlatform().catch(e => console.error(e));`
+  await setupDevPlatform();
+}
