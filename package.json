@@ -12,7 +12,10 @@
     "pages:build": "yarn run next-on-pages",
     "pages:preview": "yarn run pages:build && wrangler pages dev .vercel/output/static --compatibility-date=2024-01-29 --compatibility-flag=nodejs_compat",
     "pages:deploy": "yarn run pages:build && wrangler pages deploy .vercel/output/static",
-    "db:generate": "drizzle-kit generate:sqlite --schema=app/schema.ts"
+    "db:generate": "drizzle-kit generate:sqlite --schema=app/schema.ts",
+    "db:apply": "wrangler d1 migrations apply MAIN_DB --local",
+    "db:apply:preview": "wrangler d1 migrations apply MAIN_DB --preview",
+    "db:apply:production": "wrangler d1 migrations apply MAIN_DB"
   },
   "dependencies": {
     "@cloudflare/next-on-pages": "^1.9.0",

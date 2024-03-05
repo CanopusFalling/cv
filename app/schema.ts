@@ -1,25 +1,18 @@
 //Drizzle ORM Schema Definition.
 
-import {
-  sqliteTable,
-  text,
-  integer,
-  uniqueIndex,
-} from "drizzle-orm/sqlite-core";
+import { sql } from "drizzle-orm";
 
-export const document = sqliteTable(
-  "document",
-  {
-    id: integer("id").primaryKey(),
-    name: text("name"),
-  },
-  (document) => ({
-    nameIdx: uniqueIndex("nameIdx").on(document.name),
-  })
-);
+import { sqliteTable, text, integer, blob } from "drizzle-orm/sqlite-core";
 
-export const cities = sqliteTable("version", {
+export const document = sqliteTable("document", {
   id: integer("id").primaryKey(),
   name: text("name"),
-  countryId: integer("country_id").references(() => document.id),
+});
+
+export const version = sqliteTable("version", {
+  id: integer("id").primaryKey(),
+  name: text("name"),
+  timestamp: text("timestamp").default(sql`CURRENT_TIMESTAMP`),
+  markdown: blob("markdown"),
+  documentID: integer("documentID").references(() => document.id),
 });
