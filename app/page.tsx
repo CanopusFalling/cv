@@ -1,8 +1,22 @@
 //@ts-expect-error
 import { getRequestContext } from "@cloudflare/next-on-pages";
+import { drizzle } from "drizzle-orm/d1";
 
-export default function Page() {
+import { document } from "./schema";
+
+export default async function Page() {
   const { env } = getRequestContext();
-  const mainDB = env.MAIN_DB;
-  console.log(mainDB);
+  const db = drizzle(env.MAIN_DB as D1Database);
+  const result = await db.select().from(document).all();
+
+  return (
+    <div>
+      {result.map((item) => (
+        <div key={item.id}>
+          <p>ID: {item.id}</p>
+          <p>Name: {item.name}</p>
+        </div>
+      ))}
+    </div>
+  );
 }
