@@ -8,6 +8,13 @@
       "when": 1709645407580,
       "tag": "0000_pink_enchantress",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1709746009180,
+      "tag": "0001_salty_johnny_blaze",
+      "breakpoints": true
     }
   ]
 }
