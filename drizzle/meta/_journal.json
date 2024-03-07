@@ -15,6 +15,13 @@
       "when": 1709746009180,
       "tag": "0001_salty_johnny_blaze",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1709825452764,
+      "tag": "0002_optimal_exodus",
+      "breakpoints": true
     }
   ]
 }

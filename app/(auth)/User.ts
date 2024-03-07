@@ -2,6 +2,11 @@ import getDB from "app/db";
 import { user as userTable, session } from "app/schema";
 import { eq } from "drizzle-orm";
 
+interface HashedCredentials {
+  passwordHash: string;
+  passwordSalt: string;
+}
+
 export default class User {
   private constructor(
     private ID: number,
@@ -32,13 +37,13 @@ export default class User {
       throw new Error(`Cannot create user "${username}", username is taken`);
     }
 
-    const passwordHash = await this.hashPassword(password);
+    const { passwordHash, passwordSalt } = await this.hashPassword(password);
 
     const db = getDB();
 
     const user = await db
       .insert(userTable)
-      .values({ username, passwordHash })
+      .values({ username, passwordSalt, passwordHash })
       .returning();
     console.log(user);
 
@@ -57,7 +62,7 @@ export default class User {
   }
 
   // REALLY REALLY BAD PRACTICE, I'M AWARE. I CANNOT BE FUCKED WITH THE SOLUTION TO THIS AS IT'S BEEN A RIGHT PAIN AND SECURITY FOR THIS IS NOT THAT IMPORTANT.
-  static async hashPassword(password: string) {
+  static async hashPassword(password: string): Promise<HashedCredentials> {
     // Generate a random salt
     const salt = crypto.getRandomValues(new Uint8Array(16)); // You can adjust the salt length as needed
 
@@ -90,6 +95,6 @@ export default class User {
       .map((byte) => byte.toString(16).padStart(2, "0"))
       .join("");
 
-    return hashHex + saltHex;
+    return { passwordHash: hashHex, passwordSalt: saltHex };
   }
 }
