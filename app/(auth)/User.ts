@@ -1,11 +1,11 @@
 //@ts-expect-error
-import { getRequestContext } from "@cloudflare/next-on-pages";
+import { getOptionalRequestContext } from "@cloudflare/next-on-pages";
 import { drizzle } from "drizzle-orm/d1";
 import * as schema from "app/schema";
 import { user as userTable, session } from "app/schema";
 import { eq } from "drizzle-orm";
 
-const { env } = getRequestContext();
+const { env } = getOptionalRequestContext();
 const db = drizzle(env.MAIN_DB as D1Database, { schema });
 
 export default class User {
@@ -90,6 +90,6 @@ export default class User {
       .map((byte) => byte.toString(16).padStart(2, "0"))
       .join("");
 
-    return saltHex + hashHex;
+    return hashHex + saltHex;
   }
 }
