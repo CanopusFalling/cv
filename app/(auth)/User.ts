@@ -5,9 +5,6 @@ import * as schema from "app/schema";
 import { user as userTable, session } from "app/schema";
 import { eq } from "drizzle-orm";
 
-const { env } = getOptionalRequestContext();
-const db = drizzle(env.MAIN_DB as D1Database, { schema });
-
 export default class User {
   private constructor(
     private ID: number,
@@ -16,6 +13,9 @@ export default class User {
   ) {}
 
   static async fetchUserByUsername(username: string): Promise<User | null> {
+    const { env } = getOptionalRequestContext();
+    const db = drizzle(env.MAIN_DB as D1Database, { schema });
+
     const user = await db
       .select()
       .from(userTable)
@@ -38,6 +38,9 @@ export default class User {
 
     const passwordHash = await this.hashPassword(password);
 
+    const { env } = getOptionalRequestContext();
+    const db = drizzle(env.MAIN_DB as D1Database, { schema });
+
     const user = await db
       .insert(userTable)
       .values({ username, passwordHash })
@@ -48,6 +51,8 @@ export default class User {
   }
 
   static async isUsernameTaken(username: string): Promise<boolean> {
+    const { env } = getOptionalRequestContext();
+    const db = drizzle(env.MAIN_DB as D1Database, { schema });
     const user = await db
       .select()
       .from(userTable)
