@@ -1,6 +1,6 @@
 "use server";
 
-import User from "app/(auth)/User";
+import User, { createUser } from "app/(auth)/User";
 
 export interface Session {
   token: string;
@@ -17,7 +17,7 @@ export async function generateSession(
   username: string,
   password: string
 ): Promise<string> {
-  console.log(await User.createUser(username, password));
+  console.log(await createUser(username, password));
   return "test_token";
 }
 
