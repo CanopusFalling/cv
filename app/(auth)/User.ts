@@ -1,7 +1,4 @@
-//@ts-expect-error
-import { getOptionalRequestContext } from "@cloudflare/next-on-pages";
-import { drizzle } from "drizzle-orm/d1";
-import * as schema from "app/schema";
+import getDB from "app/db";
 import { user as userTable, session } from "app/schema";
 import { eq } from "drizzle-orm";
 
@@ -13,8 +10,7 @@ export default class User {
   ) {}
 
   static async fetchUserByUsername(username: string): Promise<User | null> {
-    const { env } = getOptionalRequestContext();
-    const db = drizzle(env.MAIN_DB as D1Database, { schema });
+    const db = getDB();
 
     const user = await db
       .select()
@@ -38,8 +34,7 @@ export default class User {
 
     const passwordHash = await this.hashPassword(password);
 
-    const { env } = getOptionalRequestContext();
-    const db = drizzle(env.MAIN_DB as D1Database, { schema });
+    const db = getDB();
 
     const user = await db
       .insert(userTable)
@@ -51,8 +46,8 @@ export default class User {
   }
 
   static async isUsernameTaken(username: string): Promise<boolean> {
-    const { env } = getOptionalRequestContext();
-    const db = drizzle(env.MAIN_DB as D1Database, { schema });
+    const db = getDB();
+
     const user = await db
       .select()
       .from(userTable)
