@@ -11,24 +11,34 @@ export default class User {
   private constructor(
     private ID: number,
     private username: string,
+    private passwordSalt: string,
     private passwordHash: string
   ) {}
 
   static async fetchUserByUsername(username: string): Promise<User | null> {
     const db = getDB();
 
-    const user = await db
+    const userList = await db
       .select()
       .from(userTable)
       .where(eq(userTable.username, username));
 
-    console.log(user.length);
+    if (userList.length == 0) {
+      return null;
+    }
 
-    return null; //Replace this later.
+    const user = userList[0];
+
+    return new User(
+      user.id,
+      user.username,
+      user.passwordSalt,
+      user.passwordHash
+    ); //Replace this later.
   }
 
   async verifyPassword(password: string): Promise<boolean> {
-    return true;
+    return false;
   }
 
   static async createUser(username: string, password: string): Promise<User> {
@@ -47,7 +57,12 @@ export default class User {
       .returning();
     console.log(user);
 
-    return new User(1, "placeholder_return", "placeholder_passwordHash");
+    return new User(
+      1,
+      "placeholder_return",
+      "placeholder_passwordSalt",
+      "placeholder_passwordHash"
+    );
   }
 
   static async isUsernameTaken(username: string): Promise<boolean> {
@@ -62,13 +77,20 @@ export default class User {
   }
 
   // REALLY REALLY BAD PRACTICE, I'M AWARE. I CANNOT BE FUCKED WITH THE SOLUTION TO THIS AS IT'S BEEN A RIGHT PAIN AND SECURITY FOR THIS IS NOT THAT IMPORTANT.
-  static async hashPassword(password: string): Promise<HashedCredentials> {
-    // Generate a random salt
-    const salt = crypto.getRandomValues(new Uint8Array(16)); // You can adjust the salt length as needed
+  static async hashPassword(
+    password: string,
+    salt?: string
+  ): Promise<HashedCredentials> {
+    let saltArray = null;
 
-    // Convert the password and salt to ArrayBuffer
+    if (salt) {
+      saltArray = new TextEncoder().encode(salt);
+    } else {
+      saltArray = crypto.getRandomValues(new Uint8Array(16));
+    }
+
+    const saltBuffer = new TextEncoder().encode(saltArray);
     const passwordBuffer = new TextEncoder().encode(password);
-    const saltBuffer = new Uint8Array(salt).buffer;
 
     // Concatenate the password and salt
     const concatenatedBuffer = new Uint8Array(
@@ -91,7 +113,7 @@ export default class User {
     const hashHex = hashArray
       .map((byte) => byte.toString(16).padStart(2, "0"))
       .join("");
-    const saltHex = Array.from(new Uint8Array(salt))
+    const saltHex = saltArray
       .map((byte) => byte.toString(16).padStart(2, "0"))
       .join("");
 

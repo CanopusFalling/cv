@@ -1,9 +1,13 @@
 "use server";
 
 import User from "app/(auth)/User";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
-export interface Session {
-  token: string;
+export interface AuthenticationResponse {
+  success: boolean;
+  token?: string;
+  message?: string;
 }
 
 export async function handleLogin(formData: FormData) {
@@ -16,9 +20,17 @@ export async function handleLogin(formData: FormData) {
 export async function generateSession(
   username: string,
   password: string
-): Promise<string> {
-  console.log(await User.createUser(username, password));
-  return "test_token";
-}
+): Promise<AuthenticationResponse> {
+  const user = await User.fetchUserByUsername(username);
+  if (user == null) {
+    return { success: false, message: "Username Not Found" };
+  }
 
-async function authenticateUser() {}
+  if (user.verifyPassword(password)) {
+    //Generate a session here
+    cookies().set("session_token", "test_token");
+    redirect("/");
+  }
+
+  return { success: false, message: "Password Incorrect" };
+}
