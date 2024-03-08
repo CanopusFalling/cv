@@ -10,7 +10,6 @@ export default function LoginPage() {
       <form
         className="border p-2 flex flex-col gap-3 max-w-md mx-auto"
         action={handleLogin}
-        method="post"
       >
         <section className="flex flex-row gap-2">
           <label htmlFor={usernameID}>Username</label>
