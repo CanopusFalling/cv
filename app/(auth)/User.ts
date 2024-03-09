@@ -1,6 +1,8 @@
 import getDB from "app/db";
-import { user as userTable, session } from "app/schema";
+import { user as userTable } from "app/schema";
 import { eq } from "drizzle-orm";
+
+import Session from "./Session"
 
 interface HashedCredentials {
   passwordHash: string;
@@ -8,12 +10,10 @@ interface HashedCredentials {
 }
 
 export default class User {
-  private constructor(
-    private ID: number,
-    private username: string,
-    private passwordSalt: string,
-    private passwordHash: string
-  ) {}
+
+  private constructor(  
+    id: number,
+    username: string) {}
 
   static async fetchUserByUsername(username: string): Promise<User | null> {
     const db = getDB();
@@ -31,10 +31,8 @@ export default class User {
 
     return new User(
       user.id,
-      user.username,
-      user.passwordSalt,
-      user.passwordHash
-    ); //Replace this later.
+      user.username
+    );
   }
 
   async verifyPassword(password: string): Promise<boolean> {
@@ -60,8 +58,6 @@ export default class User {
     return new User(
       1,
       "placeholder_return",
-      "placeholder_passwordSalt",
-      "placeholder_passwordHash"
     );
   }
 

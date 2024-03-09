@@ -1,4 +1,4 @@
-import { handleLogin } from "../authentication";
+import { login } from "./login";
 
 export default function LoginPage() {
   const usernameID = "username";
@@ -9,7 +9,7 @@ export default function LoginPage() {
       <h1 className="p-4 text-center w-full text-2xl">Login</h1>
       <form
         className="border p-2 flex flex-col gap-3 max-w-md mx-auto"
-        action={handleLogin}
+        action={login}
       >
         <section className="flex flex-row gap-2">
           <label htmlFor={usernameID}>Username</label>
