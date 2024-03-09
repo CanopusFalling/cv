@@ -22,6 +22,13 @@
       "when": 1709825452764,
       "tag": "0002_optimal_exodus",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1709989454969,
+      "tag": "0003_unusual_mindworm",
+      "breakpoints": true
     }
   ]
 }
