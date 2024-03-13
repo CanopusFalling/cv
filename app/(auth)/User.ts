@@ -2,7 +2,7 @@ import getDB from "app/db";
 import { user as userTable } from "app/schema";
 import { eq } from "drizzle-orm";
 
-import Session from "./Session"
+import Session from "./Session";
 
 import bcrypt from "bcryptjs";
 const SALT_CYCLES = 10;
@@ -13,10 +13,22 @@ interface HashedCredentials {
 }
 
 export default class User {
+  public id;
 
-  private constructor(  
-    id: number,
-    username: string) {}
+  private constructor(id: number) {
+    this.id = id;
+  }
+
+  async validateExists(): Promise<boolean> {
+    const db = getDB();
+
+    const userList = await db
+      .select()
+      .from(userTable)
+      .where(eq(userTable.id, this.id));
+
+    return userList.length != 0;
+  }
 
   static async fetchUserByUsername(username: string): Promise<User | null> {
     const db = getDB();
@@ -32,17 +44,17 @@ export default class User {
 
     const user = userList[0];
 
-    return new User(
-      user.id,
-      user.username
-    );
+    return new User(user.id);
   }
 
   async verifyPassword(password: string): Promise<boolean> {
     return false;
   }
 
-  static async createUser(username: string, password: string): Promise<User> {
+  static async createUser(
+    username: string,
+    password: string
+  ): Promise<User | null> {
     console.log(await this.fetchUserByUsername(username));
     if ((await this.fetchUserByUsername(username)) !== null) {
       throw new Error(`Cannot create user "${username}", username is taken`);
@@ -52,16 +64,16 @@ export default class User {
 
     const db = getDB();
 
-    const user = await db
+    const users = await db
       .insert(userTable)
       .values({ username, passwordHash })
       .returning();
-    console.log(user);
 
-    return new User(
-      1,
-      "placeholder_return",
-    );
+    if (users.length == 1) {
+      return new User(users[0].id);
+    } else {
+      throw new Error("Error, no user created");
+    }
   }
 
   static async isUsernameTaken(username: string): Promise<boolean> {
