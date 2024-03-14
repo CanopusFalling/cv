@@ -41,11 +41,12 @@ export default function LoginPage() {
             required
           />
         </section>
-        {state.errors && (
+        {state && state.errors && (
           <div
             role="alert"
             className=" bg-red-700 bg-opacity-30 border-l-4 border-red-700 p-2"
           >
+            {state.errors}
             {state.errors.username}
           </div>
         )}

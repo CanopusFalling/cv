@@ -1,12 +1,9 @@
-"use server";
-
 import getDB from "app/db";
 import { session as sessionTable, user as userTable } from "app/schema";
 import { eq } from "drizzle-orm";
 
+// Data Models
 import User from "./User";
-
-import bcrypt from "bcryptjs";
 
 const DETAULT_SESSION_LENGTH = 10000;
 
@@ -15,17 +12,59 @@ export default class Session {
   public userID;
   public createdOn;
   public expiration;
+  public token;
 
-  constructor(
+  private constructor(
     id: number,
     userID: number,
     createdOn: string,
-    expiration: string
+    expiration: string,
+    token: string
   ) {
     this.id = id;
     this.userID = userID;
     this.createdOn = createdOn;
     this.expiration = expiration;
+    this.token = token;
+  }
+
+  static async generateSession(username: string): Promise<Session | null> {
+    const user = await User.fetchUserByUsername(username);
+
+    if (user == null) {
+      return null;
+    }
+
+    const db = getDB();
+
+    const now = new Date();
+
+    const expiration = new Date(now);
+    expiration.setHours(expiration.getHours() + 1);
+
+    const buffer = new Uint8Array(512);
+    crypto.getRandomValues(buffer);
+    const token = Buffer.from(buffer).toString("hex");
+
+    const insertedSession = await db
+      .insert(sessionTable)
+      .values({
+        userID: user.id,
+        token: token,
+        createdOn: now.toISOString(),
+        expiration: expiration.toISOString(),
+      })
+      .returning();
+
+    const session = insertedSession[0];
+
+    return new Session(
+      session.id,
+      session.userID,
+      session.createdOn,
+      session.expiration,
+      session.token
+    );
   }
 
   async verifyToken(token: string): Promise<User | null> {

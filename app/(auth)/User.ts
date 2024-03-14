@@ -2,15 +2,11 @@ import getDB from "app/db";
 import { user as userTable } from "app/schema";
 import { eq } from "drizzle-orm";
 
+// Data Models
 import Session from "./Session";
 
 import bcrypt from "bcryptjs";
 const SALT_CYCLES = 10;
-
-interface HashedCredentials {
-  passwordHash: string;
-  passwordSalt: string;
-}
 
 export default class User {
   public id;
