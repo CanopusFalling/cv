@@ -22,12 +22,10 @@ Add a file called `wrangler.toml` to the root directory of the repository, it sh
 [[ d1_databases ]]
 binding = "MAIN_DB"
 database_name = "cv_production"
-database_id=<Production D1 Database>
+database_id="<Production D1 Database>" # If you change this value you will need to run `yarn run db:apply` again.
 #preview_database_id=<Preview D1 Database>
 migrations_dir="./drizzle"
 ```
-
-For the moment the `database_id` is required, this means you need to make a CF account and create a D1 database and copy the ID into this slot. The database is not used in local development at all but wrangler needs it. (note this is bad and cloudflare should patch this awful behaviour.)
 
 ### Run Database Migrations
 
