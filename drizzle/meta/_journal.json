@@ -1,0 +1,34 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1709645407580,
+      "tag": "0000_pink_enchantress",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1709746009180,
+      "tag": "0001_salty_johnny_blaze",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1709825452764,
+      "tag": "0002_optimal_exodus",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1709989454969,
+      "tag": "0003_unusual_mindworm",
+      "breakpoints": true
+    }
+  ]
+}

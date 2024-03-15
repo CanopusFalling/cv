@@ -1,13 +1,7 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import BannerNotification from "@/components/bannerNotification";
-import Footer from "@/components/footer";
-import PrintLink from "@/components/printLink";
+export const runtime = "edge";
 
-export const metadata: Metadata = {
-  title: "Samuel Kent - CV",
-  description: "CV for Samuel Kent detailing experience and qualifications.",
-};
+import "app/globals.css";
+import Footer from "@/components/footer";
 
 export default function RootLayout({
   children,
@@ -20,12 +14,8 @@ export default function RootLayout({
       dir="ltr"
       className="bg-neutral-200 dark:bg-neutral-800 h-full text-black dark:text-white print:p-0 print:m-0 print:bg-white"
     >
-      <body>
-        <BannerNotification />
-        <main className="max-w-4xl mx-auto m-6 p-4 rounded-lg shadow-2xl dark:shadow-neutral-600 dark:shadow-lg print:bg-none print:m-0 print:p-0 print:shadow-none">
-          {children}
-          <PrintLink />
-        </main>
+      <body className="h-full">
+        {children}
         <Footer />
       </body>
     </html>
