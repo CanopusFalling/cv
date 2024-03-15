@@ -1,9 +1,8 @@
 "use server";
 
-import Session from "app/(auth)/Session";
+import User from "app/(auth)/User";
 
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
 
 import { z } from "zod";
 
@@ -16,7 +15,7 @@ const schema = z.object({
   }),
 });
 
-export async function login(prevState: any, formData: FormData) {
+export async function signUp(prevState: any, formData: FormData) {
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
 
@@ -31,12 +30,10 @@ export async function login(prevState: any, formData: FormData) {
     };
   }
 
-  const session = await Session.generateSession(username, password);
-
-  if (session !== null) {
-    cookies().set("session_token", session.token);
-    redirect("/dashboard");
+  if ((await User.count()) === 0) {
+    User.createUser(username, password);
+    redirect("/login");
   }
 
-  return { errors: "login faliure" };
+  return { errors: "signup disabled" };
 }

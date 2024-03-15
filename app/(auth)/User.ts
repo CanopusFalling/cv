@@ -60,6 +60,13 @@ export default class User {
     return new User(user.id);
   }
 
+  static async count() {
+    const db = getDB();
+    const userList = await db.select().from(userTable);
+
+    return userList.length;
+  }
+
   async verifyPassword(password: string): Promise<boolean> {
     const db = getDB();
 
