@@ -53,6 +53,6 @@ yarn run pages:build
 
 When the server first launches it launches without a default account, you will need to make one by visiting `localhost:3000/signup`. Once the first account has been made this sign up will no longer work.
 
-## Deployment
+## Deployment To Cloudflare Pages
 
-_to be added_
+Will be added later in the project, for now it is way too specific to my use case. If you know how to use CF pages you should be able to puzzle it out though.
