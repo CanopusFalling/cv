@@ -45,7 +45,7 @@ export default class Session {
     const now = new Date();
 
     const expiration = new Date(now);
-    expiration.setSeconds(expiration.getSeconds() + 10);
+    expiration.setSeconds(expiration.getSeconds() + 3600);
 
     const buffer = new Uint8Array(128);
     crypto.getRandomValues(buffer);
