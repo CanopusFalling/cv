@@ -49,6 +49,10 @@ This server will live refresh and usually runs out of [https://localhost:3000](h
 yarn run pages:build
 ```
 
+### User Account Setup
+
+When the server first launches it launches without a default account, you will need to make one by visiting `localhost:3000/signup`. Once the first account has been made this sign up will no longer work.
+
 ## Deployment
 
 _to be added_
