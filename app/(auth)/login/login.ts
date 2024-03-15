@@ -32,11 +32,13 @@ export async function login(prevState: any, formData: FormData) {
     };
   }
 
+  //Add Password verification here
+
   const session = await Session.generateSession(username);
 
   if (session !== null) {
     cookies().set("session_token", session.token);
-    redirect("/");
+    redirect("/dashboard");
   }
 
   return { errors: "login faliure" };

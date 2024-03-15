@@ -43,6 +43,23 @@ export default class User {
     return new User(user.id);
   }
 
+  static async fetchUserByID(id: number): Promise<User | null> {
+    const db = getDB();
+
+    const userList = await db
+      .select()
+      .from(userTable)
+      .where(eq(userTable.id, id));
+
+    if (userList.length == 0) {
+      return null;
+    }
+
+    const user = userList[0];
+
+    return new User(user.id);
+  }
+
   async verifyPassword(password: string): Promise<boolean> {
     return false;
   }

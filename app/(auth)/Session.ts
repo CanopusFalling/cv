@@ -5,8 +5,6 @@ import { eq } from "drizzle-orm";
 // Data Models
 import User from "./User";
 
-const DETAULT_SESSION_LENGTH = 10000;
-
 export default class Session {
   public id;
   public userID;
@@ -42,7 +40,7 @@ export default class Session {
     const expiration = new Date(now);
     expiration.setHours(expiration.getHours() + 1);
 
-    const buffer = new Uint8Array(512);
+    const buffer = new Uint8Array(128);
     crypto.getRandomValues(buffer);
     const token = Buffer.from(buffer).toString("hex");
 
@@ -67,16 +65,15 @@ export default class Session {
     );
   }
 
-  async verifyToken(token: string): Promise<User | null> {
+  static async verifyToken(token: string): Promise<User | null> {
     const db = getDB();
     const sessionEntry = await db
       .select()
       .from(sessionTable)
-      .innerJoin(userTable, eq(sessionTable.userID, userTable.id))
       .where(eq(sessionTable.token, token));
 
     if (sessionEntry.length == 1) {
-      return User.fetchUserByUsername(sessionEntry[0].user.username);
+      return User.fetchUserByID(sessionEntry[0].userID);
     }
 
     return null;

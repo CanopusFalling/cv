@@ -1,7 +1,7 @@
 "use client";
 
 import { login } from "./login";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 
 const initialState = {
   message: "",
@@ -50,8 +50,18 @@ export default function LoginPage() {
             {state.errors.username}
           </div>
         )}
-        <button type="submit">Login</button>
+        <LoginButton />
       </form>
     </>
+  );
+}
+
+function LoginButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <button aria-disabled={pending} type="submit">
+      Login
+    </button>
   );
 }
