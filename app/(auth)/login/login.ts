@@ -32,9 +32,7 @@ export async function login(prevState: any, formData: FormData) {
     };
   }
 
-  //Add Password verification here
-
-  const session = await Session.generateSession(username);
+  const session = await Session.generateSession(username, password);
 
   if (session !== null) {
     cookies().set("session_token", session.token);

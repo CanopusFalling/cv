@@ -1,6 +1,6 @@
 import getDB from "app/db";
 import { session as sessionTable, user as userTable } from "app/schema";
-import { eq } from "drizzle-orm";
+import { and, eq, gt } from "drizzle-orm";
 
 // Data Models
 import User from "./User";
@@ -26,10 +26,17 @@ export default class Session {
     this.token = token;
   }
 
-  static async generateSession(username: string): Promise<Session | null> {
+  static async generateSession(
+    username: string,
+    password: string
+  ): Promise<Session | null> {
     const user = await User.fetchUserByUsername(username);
-
     if (user == null) {
+      return null;
+    }
+
+    const passwordCorrect = await user.verifyPassword(password);
+    if (!passwordCorrect) {
       return null;
     }
 
@@ -38,7 +45,7 @@ export default class Session {
     const now = new Date();
 
     const expiration = new Date(now);
-    expiration.setHours(expiration.getHours() + 1);
+    expiration.setSeconds(expiration.getSeconds() + 10);
 
     const buffer = new Uint8Array(128);
     crypto.getRandomValues(buffer);
@@ -67,32 +74,21 @@ export default class Session {
 
   static async verifyToken(token: string): Promise<User | null> {
     const db = getDB();
-    const sessionEntry = await db
+    const now = new Date().toISOString();
+
+    const sessions = await db
       .select()
       .from(sessionTable)
-      .where(eq(sessionTable.token, token));
+      .where(
+        and(eq(sessionTable.token, token), gt(sessionTable.expiration, now))
+      );
 
-    if (sessionEntry.length == 1) {
-      return User.fetchUserByID(sessionEntry[0].userID);
+    console.log(sessions);
+
+    if (sessions.length !== 1) {
+      return null;
     }
 
-    return null;
+    return User.fetchUserByID(sessions[0].userID);
   }
-
-  //   async createSession(user: User): Promise<Session> {
-  //     const db = getDB();
-
-  //     const userID = user.id;
-  //     const token =
-
-  //     const sessionInfo = await db.insert(sessionTable).values({userID}).returning();
-  //   }
-
-  //   static async getUserFromToken(token: string): Promise<number | null> {
-  //     const sessionEntry = await db
-  //       .select()
-  //       .from(sessionTable)
-  //       .innerJoin(userTable, eq(sessionTable.userID, userTable.id))
-  //       .where(eq(sessionTable.token, token));
-  //   }
 }

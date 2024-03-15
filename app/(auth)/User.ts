@@ -61,7 +61,25 @@ export default class User {
   }
 
   async verifyPassword(password: string): Promise<boolean> {
-    return false;
+    const db = getDB();
+
+    const userList = await db
+      .select()
+      .from(userTable)
+      .where(eq(userTable.id, this.id));
+
+    if (userList.length === 0) {
+      throw new Error("User not found");
+    }
+
+    const user = userList[0];
+    const hashedPassword = user.passwordHash;
+
+    console.log(user);
+    console.log(hashedPassword);
+    console.log(password);
+
+    return bcrypt.compareSync(password, hashedPassword);
   }
 
   static async createUser(
