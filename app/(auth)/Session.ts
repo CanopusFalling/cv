@@ -83,8 +83,6 @@ export default class Session {
         and(eq(sessionTable.token, token), gt(sessionTable.expiration, now))
       );
 
-    console.log(sessions);
-
     if (sessions.length !== 1) {
       return null;
     }

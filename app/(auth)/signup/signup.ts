@@ -31,7 +31,7 @@ export async function signUp(prevState: any, formData: FormData) {
   }
 
   if ((await User.count()) === 0) {
-    console.log(await User.createUser(username, password));
+    await User.createUser(username, password);
     redirect("/login");
   }
 
