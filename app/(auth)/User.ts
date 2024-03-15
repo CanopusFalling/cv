@@ -82,10 +82,6 @@ export default class User {
     const user = userList[0];
     const hashedPassword = user.passwordHash;
 
-    console.log(user);
-    console.log(hashedPassword);
-    console.log(password);
-
     return bcrypt.compareSync(password, hashedPassword);
   }
 
@@ -93,7 +89,6 @@ export default class User {
     username: string,
     password: string
   ): Promise<User | null> {
-    console.log(await this.fetchUserByUsername(username));
     if ((await this.fetchUserByUsername(username)) !== null) {
       throw new Error(`Cannot create user "${username}", username is taken`);
     }
