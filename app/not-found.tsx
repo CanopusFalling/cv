@@ -7,7 +7,7 @@ export default function NotFound() {
       <p>Could not find this page, it could have been deleted or moved.</p>
       <Link
         className="p-2 border border-white border-opacity-40 rounded-xl text-xl mx-auto"
-        href="/"
+        href="/2024"
       >
         Return Home
       </Link>
