@@ -1,3 +1,5 @@
-export default function Dashboard() {
-  return <p>You are Authorised</p>;
+import Document from "app/models/Document";
+
+export default async function Dashboard() {
+  return <></>;
 }
