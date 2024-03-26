@@ -14,7 +14,7 @@ export default class Document {
     this.name = name;
   }
 
-  static async createDocument(name: string): Promise<Document> {
+  static async create(name: string): Promise<Document> {
     const db = getDB();
 
     const documents = await db
